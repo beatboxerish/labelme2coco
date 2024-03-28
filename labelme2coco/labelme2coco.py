@@ -20,7 +20,7 @@ def get_coco_from_labelme_folder(
     """
     Args:
         labelme_folder: folder that contains labelme annotations and image files
-        coco_category_list: start from a predefined coco cateory list
+        coco_category_list: start from a predefined coco category list
     """
     # get json list
     _, abs_json_path_list = list_files_recursively(labelme_folder, contains=[".json"])
@@ -37,7 +37,7 @@ def get_coco_from_labelme_folder(
         print(f"Will skip the following annotated labels: {skip_labels}")
 
     # parse labelme annotations
-    category_ind = 0
+    category_ind = 1
     for json_path in tqdm(
         labelme_json_list, "Converting labelme annotations to COCO format"
     ):
@@ -46,8 +46,7 @@ def get_coco_from_labelme_folder(
         image_path = str(Path(labelme_folder) / data["imagePath"])
         # use the image sizes provided by labelme (they already account for
         # things such as EXIF orientation)
-        width = data["imageWidth"]
-        height = data["imageHeight"]
+        width, height = data["imageWidth"], data["imageHeight"]
         # init coco image
         coco_image = CocoImage(file_name=data["imagePath"], height=height, width=width)
         # iterate over annotations
@@ -69,7 +68,6 @@ def get_coco_from_labelme_folder(
                 category_id = category_ind
                 coco.add_category(CocoCategory(id=category_id, name=category_name))
                 category_ind += 1
-
             # convert circles, lines, and points to bbox/segmentation
             if shape["shape_type"] == "circle":
                 (cx, cy), (x1, y1) = shape["points"]
