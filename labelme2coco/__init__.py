@@ -30,7 +30,7 @@ def convert(
     Args:
         labelme_folder: folder that contains labelme annotations and image files
         export_dir: path for coco jsons to be exported
-        train_split_rate: ration fo train split
+        train_split_rate: ratio for train test split. Defaulting to 1 forms one common file
     """
     coco = get_coco_from_labelme_folder(labelme_folder, skip_labels=skip_labels)
     if train_split_rate < 1:
