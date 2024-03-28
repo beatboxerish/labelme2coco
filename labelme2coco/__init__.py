@@ -25,25 +25,27 @@ def convert(
     export_dir: str = "runs/labelme2coco/",
     train_split_rate: float = 1,
     skip_labels: List[str] = [],
+    dataset_name: str = 'dataset',
 ):
     """
     Args:
         labelme_folder: folder that contains labelme annotations and image files
         export_dir: path for coco jsons to be exported
         train_split_rate: ratio for train test split. Defaulting to 1 forms one common file
+        dataset_name: name of the dataset without extension
     """
     coco = get_coco_from_labelme_folder(labelme_folder, skip_labels=skip_labels)
     if train_split_rate < 1:
         result = coco.split_coco_as_train_val(train_split_rate)
         # export train split
-        save_path = str(Path(export_dir) / "train.json")
+        save_path = str(Path(export_dir) / f"{dataset_name}_train.json")
         save_json(result["train_coco"].json, save_path)
         logger.info(f"Training split in COCO format is exported to {save_path}")
         # export val split
-        save_path = str(Path(export_dir) / "val.json")
+        save_path = str(Path(export_dir) / f"{dataset_name}_val.json")
         save_json(result["val_coco"].json, save_path)
         logger.info(f"Validation split in COCO format is exported to {save_path}")
     else:
-        save_path = str(Path(export_dir) / "dataset.json")
+        save_path = str(Path(export_dir) / f"{dataset_name}.json")
         save_json(coco.json, save_path)
         logger.info(f"Converted annotations in COCO format is exported to {save_path}")
