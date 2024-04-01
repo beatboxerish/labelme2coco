@@ -5,12 +5,6 @@ import re
 import setuptools
 
 
-def get_long_description():
-    base_dir = os.path.abspath(os.path.dirname(__file__))
-    with io.open(os.path.join(base_dir, "README.md"), encoding="utf-8") as f:
-        return f.read()
-
-
 def get_requirements():
     with open("requirements.txt") as f:
         return f.read().splitlines()
@@ -24,14 +18,12 @@ def get_version():
 
 
 setuptools.setup(
-    name="labelme2coco",
+    name="annotation_conversions",
     version=get_version(),
-    author="Fatih Cagatay Akyon",
-    author_email="",
-    description="Convert labelme annotations into coco format in one step",
-    long_description=get_long_description(),
-    long_description_content_type="text/markdown",
-    url="https://github.com/fcakyon/labelme2coco",
+    author="Ishan Nangia",
+    author_email="ishannangia.123@gmail.com",
+    description="Converts one annotation format to another in a single step",
+    url="https://github.com/beatboxerish/labelme2coco",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -40,6 +32,7 @@ setuptools.setup(
     ],
     install_requires=get_requirements(),
     python_requires=">=3.7",
+    download_url="https://github.com/beatboxerish/labelme2coco/archive/refs/tags/v0.2.6.tar.gz",
     entry_points={
         "console_scripts": [
             "labelme2coco=labelme2coco.cli:app",
