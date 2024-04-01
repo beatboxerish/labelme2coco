@@ -5,11 +5,6 @@ import re
 import setuptools
 
 
-def get_requirements():
-    with open("requirements.txt") as f:
-        return f.read().splitlines()
-
-
 def get_version():
     current_dir = os.path.abspath(os.path.dirname(__file__))
     version_file = os.path.join(current_dir, "labelme2coco", "__init__.py")
@@ -30,7 +25,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    install_requires=get_requirements(),
+    install_requires=['sahi>=0.8.19', 'jsonschema>=2.6.0'],
     python_requires=">=3.7",
     download_url="https://github.com/beatboxerish/labelme2coco/archive/refs/tags/v0.2.6.tar.gz",
     entry_points={
