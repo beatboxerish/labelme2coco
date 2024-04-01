@@ -27,7 +27,6 @@ setuptools.setup(
     ],
     install_requires=['sahi>=0.8.19', 'jsonschema>=2.6.0'],
     python_requires=">=3.7",
-    download_url="https://github.com/beatboxerish/labelme2coco/archive/refs/tags/v0.2.6.tar.gz",
     entry_points={
         "console_scripts": [
             "labelme2coco=labelme2coco.cli:app",
